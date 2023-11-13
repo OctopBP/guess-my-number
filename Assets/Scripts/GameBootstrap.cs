@@ -1,9 +1,14 @@
+using TMPro;
 using UnityEngine;
 
 namespace Game
 {
     public class GameBootstrap : MonoBehaviour
     {
+        [SerializeField] GameConfig gameConfig;
+        
+        [SerializeField] TMP_Text resultText;
+        
         [SerializeField] Transform keypadsParent;
         [SerializeField] Keypad keypadButtonPrefab;
         
@@ -12,11 +17,11 @@ namespace Game
 
         void Start()
         {
-            var keypads = new Keypads(keypadButtonPrefab, keypadsParent);
+            var keypads = new Keypads(keypadButtonPrefab, keypadsParent, gameConfig.numberRange);
             var guesses = new Guesses(guessResultViewPrefab, guessResultsParent);
-            var gameConfig = new GameConfig(numberRange: new(1, 9));
+            var resultView = new ResultView(resultText);
             
-            _ = new GameStateMachine(gameConfig, keypads, guesses);
+            _ = new GameStateMachine(gameConfig, keypads, guesses, resultView);
         }
     }
 }

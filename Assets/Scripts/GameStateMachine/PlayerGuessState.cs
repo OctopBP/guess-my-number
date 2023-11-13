@@ -1,3 +1,5 @@
+using System;
+using UniRx;
 using UnityEngine;
 
 namespace Game
@@ -5,6 +7,7 @@ namespace Game
     class PlayerGuessState : IGameState
     {
         readonly GameStateMachine stateMachine;
+        IDisposable keyboardSubscription;
         
         public PlayerGuessState(GameStateMachine stateMachine)
         {
@@ -15,13 +18,13 @@ namespace Game
         {
             // Enable keypads and subscribe to input
             stateMachine.keypads.Show();
-            stateMachine.keypads.OnNumberEnter += NewGuess;
+            keyboardSubscription = stateMachine.keypads.onNumberEnter.Subscribe(NewGuess);
         }
 
         public void OnExit()
         {
             stateMachine.keypads.Hide();
-            stateMachine.keypads.OnNumberEnter -= NewGuess;
+            keyboardSubscription.Dispose();
         }
         
         void NewGuess(int number)

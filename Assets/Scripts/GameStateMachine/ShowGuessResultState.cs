@@ -25,7 +25,7 @@ namespace Game
             stateMachine.guesses.Add(guessResult);
             
             stateMachine.EnterState(resultType == GuessResultType.Correct
-                ? stateMachine.chooseRandomNumberState
+                ? stateMachine.winState
                 : stateMachine.playerGuessState
             );
         }

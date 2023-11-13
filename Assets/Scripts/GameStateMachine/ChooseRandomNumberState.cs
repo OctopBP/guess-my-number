@@ -14,6 +14,9 @@ namespace Game
     
         public void OnEnter()
         {
+            stateMachine.resultView.Reset();
+            stateMachine.guesses.Clear();
+            
             var range = stateMachine.gameConfig.numberRange;
             var targetNumber = rnd.Next(range.start, range.end);
             

@@ -1,5 +1,5 @@
-using System;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,17 +11,17 @@ namespace Game
         [SerializeField] Button button;
         
         int number;
-        public event Action<int> OnClick;
+        public readonly Subject<int> onClick = new();
 
         void Start()
         {
-            button.onClick.AddListener(() => OnClick?.Invoke(number));
+            button.onClick.AddListener(() => onClick.OnNext(number));
         }
         
-        public void SetNumber(int number)
+        public void SetNumber(int value)
         {
-            this.number = number;
-            text.SetText($"{number}");
+            number = value;
+            text.SetText($"{value}");
         }
     }
 }

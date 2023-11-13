@@ -25,12 +25,13 @@ namespace Game
             shownGuesses.Add(view);
         }
         
-        public void Hide()
+        public void Clear()
         {
             foreach (var shownGuess in shownGuesses)
             {
                 guessesPool.Release(shownGuess);
             }
+            shownGuesses.Clear();
         }
     }
 }

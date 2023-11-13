@@ -2,13 +2,11 @@ using UnityEngine;
 
 namespace Game
 {
-    class GameConfig
+    [CreateAssetMenu(menuName = "Game/Config", fileName = "GameConfig")]
+    class GameConfig : ScriptableObject
     {
-        public readonly RangeInt numberRange;
-        
-        public GameConfig(RangeInt numberRange)
-        {
-            this.numberRange = numberRange;
-        }
+        [SerializeField] int minNumber, maxNumber;
+
+        public RangeInt numberRange => new RangeInt(minNumber, maxNumber - minNumber + 1);
     }
 }
